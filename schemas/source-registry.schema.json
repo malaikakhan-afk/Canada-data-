@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Medisure Source Registry",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "sources"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "url",
+          "sector",
+          "type",
+          "usage",
+          "status",
+          "reviewed_at"
+        ],
+        "additionalProperties": true,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^src-[a-f0-9]{12}$"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "sector": {
+            "enum": [
+              "healthcare",
+              "legal",
+              "cross_sector"
+            ]
+          },
+          "usage": {
+            "type": "object"
+          },
+          "reviewed_at": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      }
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}
