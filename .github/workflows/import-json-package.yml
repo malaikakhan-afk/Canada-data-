@@ -28,11 +28,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          cat .import/chunks/part-* | base64 --decode > /tmp/Canada-data-standardized.zip
-          echo "$(cat .import/SHA256)  /tmp/Canada-data-standardized.zip" | sha256sum -c -
+          cat .import/chunks/part-* | base64 --decode > /tmp/Canada-data-standardized.tar.xz
+          echo "$(cat .import/SHA256)  /tmp/Canada-data-standardized.tar.xz" | sha256sum -c -
           rm -rf /tmp/canada-data-package
           mkdir -p /tmp/canada-data-package
-          unzip -q /tmp/Canada-data-standardized.zip -d /tmp/canada-data-package
+          tar -xJf /tmp/Canada-data-standardized.tar.xz -C /tmp/canada-data-package
 
       - name: Install package and validate data
         shell: bash
