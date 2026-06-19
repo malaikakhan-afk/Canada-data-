@@ -1,0 +1,28 @@
+{
+  "$schema": "../../schemas/lead-collection.schema.json",
+  "schema_version": "1.0.0",
+  "dataset": {
+    "id": "medisure-ca-legal-leads-v1",
+    "title": "Medisure Canada Legal Leads",
+    "sector": "legal",
+    "record_count": 0,
+    "generated_at": "2026-06-19T00:00:00+05:00",
+    "jurisdictions": [
+      "NL",
+      "PE",
+      "NS",
+      "NB",
+      "QC",
+      "ON",
+      "MB",
+      "SK",
+      "AB",
+      "BC",
+      "YT",
+      "NT",
+      "NU"
+    ],
+    "notes": "Initialized. Populate from law-firm/public business sources after source-terms and CASL review."
+  },
+  "records": []
+}

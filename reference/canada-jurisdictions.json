@@ -1,0 +1,136 @@
+{
+  "schema_version": "1.0.0",
+  "standard": "Statistics Canada Standard Geographical Classification 2021",
+  "jurisdictions": [
+    {
+      "postal_code": "NL",
+      "name_en": "Newfoundland and Labrador",
+      "name_fr": "Terre-Neuve-et-Labrador",
+      "iso_3166_2": "CA-NL",
+      "sgc_code": "10",
+      "region_code": "1",
+      "region_name": "Atlantic",
+      "type": "province"
+    },
+    {
+      "postal_code": "PE",
+      "name_en": "Prince Edward Island",
+      "name_fr": "Île-du-Prince-Édouard",
+      "iso_3166_2": "CA-PE",
+      "sgc_code": "11",
+      "region_code": "1",
+      "region_name": "Atlantic",
+      "type": "province"
+    },
+    {
+      "postal_code": "NS",
+      "name_en": "Nova Scotia",
+      "name_fr": "Nouvelle-Écosse",
+      "iso_3166_2": "CA-NS",
+      "sgc_code": "12",
+      "region_code": "1",
+      "region_name": "Atlantic",
+      "type": "province"
+    },
+    {
+      "postal_code": "NB",
+      "name_en": "New Brunswick",
+      "name_fr": "Nouveau-Brunswick",
+      "iso_3166_2": "CA-NB",
+      "sgc_code": "13",
+      "region_code": "1",
+      "region_name": "Atlantic",
+      "type": "province"
+    },
+    {
+      "postal_code": "QC",
+      "name_en": "Quebec",
+      "name_fr": "Québec",
+      "iso_3166_2": "CA-QC",
+      "sgc_code": "24",
+      "region_code": "2",
+      "region_name": "Quebec",
+      "type": "province"
+    },
+    {
+      "postal_code": "ON",
+      "name_en": "Ontario",
+      "name_fr": "Ontario",
+      "iso_3166_2": "CA-ON",
+      "sgc_code": "35",
+      "region_code": "3",
+      "region_name": "Ontario",
+      "type": "province"
+    },
+    {
+      "postal_code": "MB",
+      "name_en": "Manitoba",
+      "name_fr": "Manitoba",
+      "iso_3166_2": "CA-MB",
+      "sgc_code": "46",
+      "region_code": "4",
+      "region_name": "Prairies",
+      "type": "province"
+    },
+    {
+      "postal_code": "SK",
+      "name_en": "Saskatchewan",
+      "name_fr": "Saskatchewan",
+      "iso_3166_2": "CA-SK",
+      "sgc_code": "47",
+      "region_code": "4",
+      "region_name": "Prairies",
+      "type": "province"
+    },
+    {
+      "postal_code": "AB",
+      "name_en": "Alberta",
+      "name_fr": "Alberta",
+      "iso_3166_2": "CA-AB",
+      "sgc_code": "48",
+      "region_code": "4",
+      "region_name": "Prairies",
+      "type": "province"
+    },
+    {
+      "postal_code": "BC",
+      "name_en": "British Columbia",
+      "name_fr": "Colombie-Britannique",
+      "iso_3166_2": "CA-BC",
+      "sgc_code": "59",
+      "region_code": "5",
+      "region_name": "British Columbia",
+      "type": "province"
+    },
+    {
+      "postal_code": "YT",
+      "name_en": "Yukon",
+      "name_fr": "Yukon",
+      "iso_3166_2": "CA-YT",
+      "sgc_code": "60",
+      "region_code": "6",
+      "region_name": "Territories",
+      "type": "territory"
+    },
+    {
+      "postal_code": "NT",
+      "name_en": "Northwest Territories",
+      "name_fr": "Territoires du Nord-Ouest",
+      "iso_3166_2": "CA-NT",
+      "sgc_code": "61",
+      "region_code": "6",
+      "region_name": "Territories",
+      "type": "territory"
+    },
+    {
+      "postal_code": "NU",
+      "name_en": "Nunavut",
+      "name_fr": "Nunavut",
+      "iso_3166_2": "CA-NU",
+      "sgc_code": "62",
+      "region_code": "6",
+      "region_name": "Territories",
+      "type": "territory"
+    }
+  ]
+}

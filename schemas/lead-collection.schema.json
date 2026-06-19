@@ -1,0 +1,215 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/malaikakhan-afk/Canada-data-/schemas/lead-collection.schema.json",
+  "title": "Medisure Canada Lead Collection",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "dataset",
+    "records"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "dataset": {
+      "type": "object",
+      "required": [
+        "id",
+        "sector",
+        "record_count",
+        "generated_at"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sector": {
+          "enum": [
+            "healthcare",
+            "legal",
+            "mixed"
+          ]
+        },
+        "record_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "jurisdictions": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "NL",
+              "PE",
+              "NS",
+              "NB",
+              "QC",
+              "ON",
+              "MB",
+              "SK",
+              "AB",
+              "BC",
+              "YT",
+              "NT",
+              "NU"
+            ]
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "schema_version",
+          "id",
+          "sector",
+          "record_type",
+          "status",
+          "entity",
+          "geography",
+          "source_ids",
+          "quality",
+          "audit"
+        ],
+        "additionalProperties": true,
+        "properties": {
+          "schema_version": {
+            "const": "1.0.0"
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^ca-[a-z0-9-]+$"
+          },
+          "sector": {
+            "enum": [
+              "healthcare",
+              "legal"
+            ]
+          },
+          "record_type": {
+            "enum": [
+              "organization",
+              "facility",
+              "professional"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "minLength": 1
+          },
+          "entity": {
+            "type": "object",
+            "required": [
+              "name",
+              "type"
+            ],
+            "additionalProperties": true,
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "type": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "geography": {
+            "type": "object",
+            "required": [
+              "country"
+            ],
+            "additionalProperties": true,
+            "properties": {
+              "country": {
+                "const": "CA"
+              },
+              "province_territory": {
+                "type": "string",
+                "enum": [
+                  "NL",
+                  "PE",
+                  "NS",
+                  "NB",
+                  "QC",
+                  "ON",
+                  "MB",
+                  "SK",
+                  "AB",
+                  "BC",
+                  "YT",
+                  "NT",
+                  "NU"
+                ]
+              }
+            }
+          },
+          "contacts": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "target_roles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "source_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^src-[a-f0-9]{12}$"
+            },
+            "uniqueItems": true
+          },
+          "source_urls": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri"
+            },
+            "uniqueItems": true
+          },
+          "quality": {
+            "type": "object",
+            "required": [
+              "dedupe_key"
+            ],
+            "additionalProperties": true,
+            "properties": {
+              "dedupe_key": {
+                "type": "string",
+                "pattern": "^sha256:[a-f0-9]{64}$"
+              }
+            }
+          },
+          "audit": {
+            "type": "object",
+            "required": [
+              "created_at",
+              "updated_at",
+              "created_by"
+            ],
+            "additionalProperties": true
+          }
+        }
+      }
+    }
+  }
+}
