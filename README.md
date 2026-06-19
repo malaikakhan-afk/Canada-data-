@@ -1,93 +1,78 @@
 # Medisure Canada Lead Data
 
-A versioned JSON repository for Canadian healthcare and legal lead generation.
+A versioned JSON standard for Canadian healthcare and legal lead generation.
 
-## Current migration
+## Current repository status
 
-- **103 curated healthcare accounts** were imported from `BD_Target_Accounts` and merged with `Contact_Details`.
-- **1,429 ODHF source rows** were normalized and deduplicated into **1,246 facility candidates**.
-- Healthcare facility coverage includes all **10 provinces and 3 territories**.
-- The legal collection is initialized but intentionally contains no professional leads until a compliant source and usage review is completed.
-- The source registry records the URL, publisher, jurisdiction, licence/terms status and permitted use for every source used by a record.
+The canonical data contract has been merged into `main` and includes:
+
+- JSON Schema for lead collections
+- JSON Schema for source provenance and usage policies
+- Canada province/territory reference using postal, ISO 3166-2 and Statistics Canada SGC codes
+- Healthcare, legal, Medisure-product, workflow and contact-verification taxonomies
+- Data-model and deduplication documentation
+- An initialized legal-lead collection covering all 13 provinces and territories
+
+The supplied Excel workbook has also been converted into a separately packaged, validated bulk import containing:
+
+- **103 curated healthcare accounts**
+- **1,246 deduplicated healthcare facility candidates** from 1,429 ODHF source rows
+- **208 registered source records**
+- Coverage across all **10 provinces and 3 territories**
+
+The bulk package is partitioned by province/territory so it can be reviewed and committed without creating one unmanageably large JSON file.
 
 ## Repository layout
 
 ```text
 schemas/
-  lead-collection.schema.json      Standard record and collection schema
-  source-registry.schema.json      Source provenance and usage-policy schema
+  lead-collection.schema.json
+  source-registry.schema.json
 reference/
-  canada-jurisdictions.json        Province/territory, ISO and SGC codes
-  taxonomy.json                    Sectors, entity types, statuses and product codes
-sources/
-  source-registry.json             Source URLs, terms/usage notes and review dates
+  canada-jurisdictions.json
+  taxonomy.json
+docs/
+  DATA_MODEL.md
 data/
   healthcare/
-    curated-accounts.json          Sales-ready account universe; still requires contact verification
-    odhf-facilities-<PT>.json      Facility candidates partitioned by province/territory
+    curated-accounts.json
+    odhf-facilities-<PT>.json
   legal/
-    legal-leads.json               Law-firm and legal-professional collection
-docs/
-  DATA_MODEL.md                    Field definitions, examples and ingestion rules
+    legal-leads.json
+sources/
+  source-registry.json
 scripts/
-  validate_data.py                 JSON Schema, ID, geography and source-reference checks
+  validate_data.py
 ```
 
 ## Canonical storage rule
 
-Store **one JSON record per targetable entity**:
+Store one JSON record per targetable entity:
 
-- A hospital system, health authority, clinic network or law firm is an `organization`.
-- A physical hospital, clinic, long-term-care site or office is a `facility`.
-- A lawyer, notary, paralegal or named decision-maker is a `professional`.
-- Use `entity.parent_lead_id` to link a facility or professional to its organization.
-- Keep every source in `provenance`, and register the source in `sources/source-registry.json`.
-- Never overwrite source-specific wording. Put normalized values in standard fields and preserve original wording in `segment_raw`, `classification`, or source notes.
+- Hospital system, health authority, clinic network or law firm: `organization`
+- Physical hospital, clinic, long-term-care site or law office: `facility`
+- Lawyer, notary, paralegal or named decision-maker: `professional`
+
+Use a stable parent ID to connect facilities and professionals to their organization. Preserve source-specific wording while also storing normalized classifications.
 
 ## Canada geography
 
-Canada does not use states. Records use the Statistics Canada hierarchy:
+Canada does not use states. Local records use this hierarchy:
 
 1. Geographical region
 2. Province or territory
 3. Census division
 4. Census subdivision
 
-Province/territory is mandatory for local records. Census division/subdivision fields can remain `null` until a reliable SGC match is available.
+Province/territory is required for local records. Census division and subdivision may remain `null` until a reliable SGC match is available.
 
-## Lead workflow
+## Data quality and compliance
 
-1. Add or review a source in `sources/source-registry.json`.
-2. Import records into the standard schema.
-3. Deduplicate using `data_quality.dedupe_key`.
-4. Validate the organization, website, active status and target fit.
-5. Enrich named contacts only through sources and tools permitted for that use.
-6. Verify business emails and record the source and verification date.
-7. Complete the CASL review before campaign enrollment.
-8. Run the validator and commit the changes.
-
-## Legal-data rule
-
-Law-society directories are primarily regulatory or public-interest lookup tools. Some explicitly prohibit commercial, marketing or solicitation use. They must not be bulk scraped or treated as marketing lists. Prefer law-firm websites, public firm contact pages and approved B2B providers, then use the regulator only to verify professional status where permitted.
-
-## Validate
-
-```bash
-python -m pip install -r requirements.txt
-python scripts/validate_data.py
-```
-
-The GitHub Actions workflow runs the same validation on every push and pull request.
-
-## Source and outreach safeguards
-
-Every outbound contact should have:
-
-- an identifiable public business source;
-- a source review date;
-- a recorded consent or other applicable CASL basis;
-- Medisure identification and contact details in the message;
-- a working unsubscribe mechanism;
-- suppression handling for opt-outs, invalid addresses and do-not-contact records.
+- Deduplicate organizations by normalized name, jurisdiction and website domain.
+- Deduplicate facilities by normalized name, postal code and jurisdiction.
+- Keep exact source URLs and source review dates.
+- Do not store guessed emails as verified contacts.
+- Treat law-society directories as professional-verification sources unless their terms expressly allow broader use.
+- Complete CASL review, permission-basis and suppression fields before campaign enrollment.
 
 This repository is a lead-research system, not proof of consent and not legal advice.
