@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.0",
+  "sectors": [
+    "healthcare",
+    "legal"
+  ],
+  "record_types": [
+    "organization",
+    "facility",
+    "professional"
+  ],
+  "healthcare_entity_types": [
+    "clinic_network",
+    "clinic_or_ambulatory_facility",
+    "digital_health",
+    "health_agency",
+    "health_authority",
+    "healthcare_association",
+    "healthcare_organization",
+    "home_care",
+    "hospital",
+    "hospital_facility",
+    "hospital_network",
+    "long_term_care",
+    "long_term_care_facility",
+    "mental_health",
+    "rehabilitation",
+    "shared_services_procurement",
+    "specialty_health_agency"
+  ],
+  "legal_entity_types": [
+    "law_firm",
+    "legal_services_organization",
+    "lawyer",
+    "notary",
+    "paralegal"
+  ],
+  "products": [
+    "oryxblue_cybersecurity",
+    "hyengine_sdp",
+    "ai_virtual_assistant",
+    "managed_it_helpdesk",
+    "cerner_services"
+  ],
+  "workflow_statuses": [
+    "not_contacted",
+    "researching",
+    "contacted",
+    "qualified",
+    "meeting_scheduled",
+    "proposal",
+    "won",
+    "lost",
+    "nurture",
+    "do_not_contact"
+  ],
+  "contact_statuses": [
+    "not_enriched",
+    "unverified",
+    "needs_enrichment",
+    "partially_verified",
+    "directory_verified",
+    "verified_public",
+    "verified_business_email"
+  ]
+}
