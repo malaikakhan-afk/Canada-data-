@@ -1,0 +1,58 @@
+name: Import standardized JSON package
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .import/READY
+
+permissions:
+  contents: write
+
+concurrency:
+  group: medisure-json-import
+  cancel-in-progress: false
+
+jobs:
+  import-package:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Reassemble and verify package
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .import/chunks/part-* | base64 --decode > /tmp/Canada-data-standardized.zip
+          echo "$(cat .import/SHA256)  /tmp/Canada-data-standardized.zip" | sha256sum -c -
+          rm -rf /tmp/canada-data-package
+          mkdir -p /tmp/canada-data-package
+          unzip -q /tmp/Canada-data-standardized.zip -d /tmp/canada-data-package
+
+      - name: Install package and validate data
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp -a /tmp/canada-data-package/. .
+          rm -rf .import
+          rm -f .github/workflows/import-json-package.yml
+          python -m pip install -r requirements.txt
+          python scripts/validate_data.py
+
+      - name: Commit extracted JSON package
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "Import standardized Medisure Canada JSON package"
+          git push origin HEAD:main
